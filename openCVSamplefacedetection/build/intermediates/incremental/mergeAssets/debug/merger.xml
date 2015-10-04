@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="unspecified"><source path="E:\androidproject\facedetect\openCVSamplefacedetection\build\intermediates\exploded-aar\facedetect\openCVLibrary2410\unspecified\assets"/></dataSet><dataSet config="main"><source path="E:\androidproject\facedetect\openCVSamplefacedetection\src\main\assets"/></dataSet><dataSet config="debug"><source path="E:\androidproject\facedetect\openCVSamplefacedetection\src\debug\assets"/></dataSet></merger>

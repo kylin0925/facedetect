@@ -46,7 +46,7 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
     private CascadeClassifier      mJavaDetector;
     private DetectionBasedTracker  mNativeDetector;
 
-    private int                    mDetectorType       = NATIVE_DETECTOR;
+    private int                    mDetectorType       = JAVA_DETECTOR;
     private String[]               mDetectorName;
 
     private float                  mRelativeFaceSize   = 0.2f;
@@ -173,9 +173,11 @@ public class FdActivity extends Activity implements CvCameraViewListener2 {
         MatOfRect faces = new MatOfRect();
 
         if (mDetectorType == JAVA_DETECTOR) {
-            if (mJavaDetector != null)
+            if (mJavaDetector != null) {
                 mJavaDetector.detectMultiScale(mGray, faces, 1.1, 2, 2, // TODO: objdetect.CV_HAAR_SCALE_IMAGE
                         new Size(mAbsoluteFaceSize, mAbsoluteFaceSize), new Size());
+                //mNativeDetector.ClassifierDetect(mGray, faces);
+            }
         }
         else if (mDetectorType == NATIVE_DETECTOR) {
             if (mNativeDetector != null)

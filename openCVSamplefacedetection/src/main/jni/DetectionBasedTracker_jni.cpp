@@ -2,7 +2,7 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/contrib/detection_based_tracker.hpp>
 #include <opencv2/ocl/ocl.hpp>
-
+#include <opencv2/objdetect/objdetect.hpp>
 #include <string>
 #include <vector>
 
@@ -13,12 +13,34 @@
 
 using namespace std;
 using namespace cv;
-
+cv::CascadeClassifier cascadeClassifier;
 inline void vector_Rect_to_Mat(vector<Rect>& v_rect, Mat& mat)
 {
     mat = Mat(v_rect, true);
 }
+JNIEXPORT jlong JNICALL Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativecascadeClassifierLoad
+(JNIEnv * jenv, jclass, jstring jFileName)
+{
+    const char* jnamestr = jenv->GetStringUTFChars(jFileName, NULL);
+    string stdFileName(jnamestr);
+    jlong n = 0;
+    LOGD("Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativecascadeClassifierLoad");
+    n = cascadeClassifier.load(stdFileName);
+    LOGD("cascadeClassifier %s return %d ",jnamestr,n);
+    return n;
+}
 
+JNIEXPORT void JNICALL Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativecadeClassifierDetect
+(JNIEnv * jenv, jclass, jlong imageGray, jlong faces)
+{
+    Mat mat = *((Mat*)imageGray);
+    vector<Rect> f;
+    LOGD("nativecadeClassifierDetect");
+    cascadeClassifier.detectMultiScale(mat,f,1.1, 2, 2,Size(60,60),Size());
+
+    vector_Rect_to_Mat(f,*((Mat*)faces));
+    LOGD("nativecadeClassifierDetect exit");
+}
 JNIEXPORT jlong JNICALL Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativeCreateObject
 (JNIEnv * jenv, jclass, jstring jFileName, jint faceSize)
 {

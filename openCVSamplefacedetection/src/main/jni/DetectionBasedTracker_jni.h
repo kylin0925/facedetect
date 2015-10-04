@@ -7,6 +7,10 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+JNIEXPORT jlong JNICALL Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativecascadeClassifierLoad
+(JNIEnv * jenv, jclass, jstring jFileName);
+JNIEXPORT void JNICALL Java_org_opencv_samples_facedetect_DetectionBasedTracker_nativecadeClassifierDetect
+(JNIEnv * jenv, jclass, jlong imageGray, jlong faces);
 /*
  * Class:     org_opencv_samples_fd_DetectionBasedTracker
  * Method:    nativeCreateObject
